@@ -1,3 +1,3 @@
 # Oracle-program
 
-Use droidscript, convert generated binary code to UTF-16 then translate to English.
+Use droidscript, run the communicator then run SynthReason, copy and paste a text resource to the upper edit box then press save. Then activate.
