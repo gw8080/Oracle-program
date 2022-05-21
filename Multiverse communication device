@@ -464,7 +464,7 @@ function send()
    		if (aa*aaa*aaaa*aaaaa == Math.floor(Math.random() * (1024)) + 0){
    */
    //integer = aa*aaa*aaaa*aaaaa;
-   integer = 117;
+   integer = 117;//message
    /*
    	}
    }
