@@ -1,0 +1,145 @@
+//Called when application is started. 
+function OnStart() {
+   //Create a layout with objects vertically centered. 
+   lay = app.CreateLayout("linear", "VCenter,FillXY")
+app.ShowPopup("Place resource in the top edit box first")
+	edt = app.CreateTextEdit( "", 0.96, 0.4) 
+	edt.SetBackColor( "#333333" )
+	lay.AddChild( edt ) 
+edt2 = app.CreateTextEdit( "output", 0.96, 0.4) 
+	edt2.SetBackColor( "#333333" )
+	lay.AddChild( edt2 ) 
+   //Create a horizontal layout for buttons. 
+   layBut = app.CreateLayout("Linear", "Horizontal")
+   lay.AddChild(layBut)
+
+   //Create an Load button. 
+   btnLoad = app.CreateButton("Load resource from file and activate", 0.43, 0.1)
+   btnLoad.SetOnTouch(btnLoad_OnTouch)
+   layBut.AddChild(btnLoad)
+   
+   btnSave = app.CreateButton( "Save resource", 0.43, 0.1 ) 
+	btnSave.SetOnTouch( btnSave_OnTouch ) 
+	layBut.AddChild( btnSave ) 
+
+
+
+      //Add layout to app.	 
+   app.AddLayout(lay)
+}
+
+function convert(lst) {
+   return lst.split(" ")
+}
+
+function process(user) {
+      var text = app.ReadFile( "/sdcard/resource.txt" )
+      var sentences = text.split('.')
+      var output = ""
+      var words = convert(user)
+      for(var i = 0; i < sentences.length; i++) {
+         var stat = 0
+
+         for(var j = 0; j < words.length; j++) {
+            if(sentences[i].indexOf(words[j]) > -1) {
+               stat += 1
+
+            }
+            if(stat >= convert(user).length - 1) {
+               if(output.indexOf(words[j]) == -1 && words[j].length >
+                  1 &&
+                  sentences[i].indexOf(" " + words[j] + " ") > -1) {
+                  output += sentences[i] + " "
+               }
+            }
+         }
+      }
+
+      return output
+   }
+   //Called when user touches Load button. 
+function btnLoad_OnTouch() {
+
+  
+   var txt = process("hello")
+   proc = process(txt)
+   n = 0
+   words = convert(proc)
+   resB = ""
+   output = ""
+   sync = ""
+   m = 0
+   k = 0
+   varX = 0
+   var text = app.ReadFile( "/sdcard/resource.txt" )
+   dataX = convert(text)
+   prev = 0
+   var z = 0
+   while(m < 25) {
+      if(varX < proc.length &&
+         varX < dataX.length) {
+         varX = proc.indexOf(dataX[varX], proc.indexOf(dataX[varX],
+            varX))
+            
+                var bin = app.GetClipboardText().split(",");
+              varX = parseInt(bin[z], 2)
+        
+               if(z >= bin.length){
+               break
+               }
+                     z+=1
+            }
+         if(varX < dataX.length - 5 && varX > prev + 1) {
+            if(dataX[varX].length >= 5 && sync.indexOf(dataX[varX] +
+                  " " + dataX[varX + 1] + " ") == -1) {
+               sync += dataX[varX] + " " + dataX[varX + 1] + " "
+            }
+            if(dataX[varX + 3].length < 5 && sync.indexOf(dataX[
+                  varX] + " " + dataX[varX + 1] + " ") == -1) {
+               sync += dataX[varX] + " " + dataX[varX + 1] +
+                  " " + dataX[varX + 2] + " " + dataX[varX + 3] +
+                  " " + dataX[varX + 4] + " "
+            }
+            if(dataX[varX + 2].length < 5 && sync.indexOf(
+                  dataX[varX] + " " + dataX[varX + 1] + " ") ==
+               -1) {
+               sync += dataX[varX] + " " + dataX[varX + 1] +
+                  " " + dataX[varX + 2] + " " + dataX[varX + 3] +
+                  " "
+            }
+            if(dataX[varX + 1].length < 5 && sync.indexOf(
+                  dataX[varX] + " " + dataX[varX + 1] +
+                  " ") == -1) {
+               sync += dataX[varX] + " " + dataX[varX + 1] +
+                  " " + dataX[varX + 2] + " "
+            }
+            prev =
+               varX
+            m += 1
+         }
+         k += 1
+         if(k > 100) {
+         
+            varX = Math.floor(Math.random() * (dataX.length - 1 + 1)) + 1;
+     
+     
+            m += 1
+            k = 0
+            prev = 0
+         }
+    
+      }
+        var pitch = 1.0,
+            speed = 1.0;
+            app.ShowPopup(sync )
+            edt2.SetText( sync )
+         app.TextToSpeech(sync, pitch, speed)
+
+}
+
+
+function btnSave_OnTouch() 
+{ 
+    var txt = edt.GetText()
+	app.WriteFile( "/sdcard/resource.txt", txt )
+} 
