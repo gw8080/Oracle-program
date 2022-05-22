@@ -45,7 +45,6 @@ function OnStart() {
    }
    setTimeout("StartDetection()", 1000);
 }
-
 function StartDetection() {
    for(var a = 0; a < 500; a++) {
       var b = Math.floor(Math.random() * (2)) + 0;
@@ -60,10 +59,8 @@ function StartDetection() {
       img);
    cam.SetOnMotion(OnMotion);
    cam.StartPreview();
-
 }
 var data2;
-
 function OnMotion(data) {
    sta = 0;
    if(Do == 1) {
