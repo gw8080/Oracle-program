@@ -1,10 +1,4 @@
 //Qbox code - copyright - George Wagenknecht 2018
-
-var rich = 0;
-var low = 0;
-var high = 170000;
-var url = "https://www.999dice.com/api/web.aspx"
-var PayIn = 100
 var resTxt = "";
 var swi = 0;
 var swi2 = 0;
@@ -44,80 +38,20 @@ function OnStart()
    cam = app.CreateCameraView(x, y);
    lay.AddChild(cam);
 
-   btn = app.CreateButton("Set", 0.2, 0.15);
-   btn.SetOnTouch(set);
-   //lay.AddChild( btn ); 
 
-   btn3 = app.CreateButton("Bet", 0.2, 0.15);
-   btn3.SetOnTouch(bet);
-   //lay.AddChild( btn3 ); 
-
-
-   btn2 = app.CreateButton("SendL", 0.2, 0.15);
-   btn2.SetOnTouch(sendL);
+   btn2 = app.CreateButton("Send", 0.2, 0.15);
+   btn2.SetOnTouch(send);
    //lay.AddChild( btn2 ); 
    app.AddLayout(lay);
    for(var a = 0; a < 500; a++)
    {
       var b = Math.floor(Math.random() * (1)) + 0;
-      //numa += "0,1,0,0,1,0,0,0,0,1,1,0,0,1,0,1,0,1,1,0,1,1,0,0,0,1,1,0,1,1,0,0,0,1,1,0,1,1,1,1,";
-      //
       numa += b + ",";
    }
    setTimeout("StartDetection()", 1000);
 }
 
 
-function bet()
-{
-   var command =
-      "a=PlaceBet&s=742f92c435ff466b8fbfad4c9ea67347&PayIn=" +
-      PayIn + "&Low=" + low + "&High=" + high +
-      "&ClientSeed=-5309338182208444527&currency=doge&ProtocolVersion=2"
-   httpRequest = new XMLHttpRequest();
-   httpRequest.open("POST", url, true);
-   httpRequest.setRequestHeader('Content-type',
-      'application/x-www-form-urlencoded');
-   httpRequest.onreadystatechange = function()
-   {
-      HandleReply(httpRequest);
-   };
-   httpRequest.send(command);
-}
-
-function set()
-{
-   var command =
-      "a=PlaceBet&s=742f92c435ff466b8fbfad4c9ea67347&PayIn=" +
-      PayIn + "&Low=" + low + "&High=" + high +
-      "&ClientSeed=-5309338182208444527&currency=doge&ProtocolVersion=2"
-   httpRequest = new XMLHttpRequest();
-   httpRequest.open("POST", url, true);
-   httpRequest.setRequestHeader('Content-type',
-      'application/x-www-form-urlencoded');
-   httpRequest.onreadystatechange = function()
-   {
-      HandleReply(httpRequest);
-   };
-   httpRequest.send(command);
-}
-
-function sendL()
-{
-   var command =
-      "a=PlaceBet&s=742f92c435ff466b8fbfad4c9ea67347&PayIn=" +
-      PayIn +
-      "&Low=0&High=666666&ClientSeed=-5309338182208444527&currency=doge&ProtocolVersion=2"
-   httpRequest = new XMLHttpRequest();
-   httpRequest.open("POST", url, true);
-   httpRequest.setRequestHeader('Content-type',
-      'application/x-www-form-urlencoded');
-   httpRequest.onreadystatechange = function()
-   {
-      HandleReply(httpRequest);
-   };
-   httpRequest.send(command);
-}
 
 function StartDetection()
 {
@@ -135,8 +69,7 @@ function StartDetection()
       img);
    cam.SetOnMotion(OnMotion);
    cam.StartPreview();
-   player = app.CreateMediaPlayer();
-   player.SetFile("/Sys/Snd/Poing.ogg");
+
 }
 var data2;
 
@@ -272,38 +205,10 @@ function OnMotion(data)
                binary += ",";
                ite = 0;
             }
-            low += 170000;
-            high += 170000;
-
-
-            if(high > 999999)
-            {
-               low = 0;
-               high = 170000;
-            }
+       
             sta = 1;
          }
-         /*
-         if (qu == quc2){
-         var command = "a=PlaceBet&s=742f92c435ff466b8fbfad4c9ea67347&PayIn="+ PayIn + "&Low=333333&High=999999&ClientSeed=-5309338182208444527&currency=doge&ProtocolVersion=2"
-             httpRequest = new XMLHttpRequest();    
-             httpRequest.open("POST", url, true); 
-             httpRequest.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-             httpRequest.onreadystatechange = function() { HandleReply(httpRequest); };
-              httpRequest.send(command);   
-         }
-
-
-
-         if (qu == quc2){
-         var command = "a=PlaceBet&s=742f92c435ff466b8fbfad4c9ea67347&PayIn="+ PayIn + "&Low=0&High=666666&ClientSeed=-5309338182208444527&currency=doge&ProtocolVersion=2"
-             httpRequest = new XMLHttpRequest();    
-             httpRequest.open("POST", url, true); 
-             httpRequest.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-             httpRequest.onreadystatechange = function() { HandleReply(httpRequest); };
-              httpRequest.send(command);   
-         }
-         */
+     
 
       }
       //most of the time it knows the number before it matches...
@@ -464,7 +369,7 @@ function send()
    		if (aa*aaa*aaaa*aaaaa == Math.floor(Math.random() * (1024)) + 0){
    */
    //integer = aa*aaa*aaaa*aaaaa;
-   integer = 117;//message
+   integer = 580067987;//message
    /*
    	}
    }
@@ -477,20 +382,11 @@ function send()
    app.ShowPopup(resultint);
    //paradox computation
 
-   sms.Send("enter phone number", "@" + ite + " " + resultint[ite]); //represents 1 bit.
+   msg ="@" + ite + " " + resultint[ite]; //represents 1 bit.
    ite++;
-   player.SeekTo(0);
-   player.Play();
-
-}
-
-function sms_OnMessage(number, msg)
-{
-
-   //change paradox size? 500.... to 1500?
-   if(msg.index_Of("@0") > -1)
+if(msg.index_Of("@0") > -1)
    {
-      if(msg.index_Of("1") > -1)
+      if(msg.index_Of(" 1") > -1)
       {
          for(var a = 0; a < 500; a++)
          {
@@ -598,7 +494,5 @@ function sms_OnMessage(number, msg)
          recieve += msg + ",";
       }
    }
-
-
 
 }
