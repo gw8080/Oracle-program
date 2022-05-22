@@ -308,15 +308,6 @@ function OnMotion(data)
          {
 
 
-            low += 170000;
-            high += 170000;
-
-
-            if(high > 999999)
-            {
-               low = 0;
-               high = 170000;
-            }
             sta = 1;
          }
       }
