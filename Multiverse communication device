@@ -30,33 +30,24 @@ var binary = "";
 var ite = 0;
 var integer = 0;
 var recieve = "";
-
-function OnStart()
-{
+function OnStart() {
    app.SetOrientation("Landscape");
    lay = app.CreateLayout("Linear", "VCentre,FillXY");
    cam = app.CreateCameraView(x, y);
    lay.AddChild(cam);
-
-
    btn2 = app.CreateButton("Send", 0.2, 0.15);
    btn2.SetOnTouch(send);
    //lay.AddChild( btn2 ); 
    app.AddLayout(lay);
-   for(var a = 0; a < 500; a++)
-   {
+   for(var a = 0; a < 500; a++) {
       var b = Math.floor(Math.random() * (1)) + 0;
       numa += b + ",";
    }
    setTimeout("StartDetection()", 1000);
 }
 
-
-
-function StartDetection()
-{
-   for(var a = 0; a < 500; a++)
-   {
+function StartDetection() {
+   for(var a = 0; a < 500; a++) {
       var b = Math.floor(Math.random() * (2)) + 0;
       numa += b + ",";
    }
@@ -73,72 +64,54 @@ function StartDetection()
 }
 var data2;
 
-function OnMotion(data)
-{
+function OnMotion(data) {
    sta = 0;
-   if(Do == 1)
-   {
+   if(Do == 1) {
       Do2 = 1;
-      if(qu == 1 && it == 0)
-      {
+      if(qu == 1 && it == 0) {
          qu = 0;
          it++;
       }
-      if(qu == 0 && it == 0)
-      {
+      if(qu == 0 && it == 0) {
          qu = 1;
          it++;
       }
       it = 0;
    }
-   if(test == 0)
-   {
+   if(test == 0) {
       var b = 0;
       var bb = 0;
       data2 = data;
       test++;
    }
-   if(test == 1)
-   {
+   if(test == 1) {
       test = 0;
-      for(var a = 0; a < data.length; a++)
-      {
-         if(data[a] > 10)
-         {
+      for(var a = 0; a < data.length; a++) {
+         if(data[a] > 10) {
             b++;
          }
       }
-      if(data2 !== undefined)
-      {
-         for(var aa = 0; aa < data2.length; aa++)
-         {
-            if(data[aa] > 10)
-            {
-               if(data2[aa] > data[a] || data2[aa] < data[a])
-               {
+      if(data2 !== undefined) {
+         for(var aa = 0; aa < data2.length; aa++) {
+            if(data[aa] > 10) {
+               if(data2[aa] > data[a] || data2[aa] < data[a]) {
                   bb++;
                }
             }
          }
       }
-      if(qu == 0)
-      {
-         if(b > 4 && b < 11 || bb > 4 && bb < 11)
-         {
+      if(qu == 0) {
+         if(b > 4 && b < 11 || bb > 4 && bb < 11) {
             or++;
          }
-         if(b > 4 && b < 11 && bb > 4 && bb < 11)
-         {
+         if(b > 4 && b < 11 && bb > 4 && bb < 11) {
             and++;
-            if(Do == 1)
-            {
-               if(qu == 1 && it == 0)
-               {
+            if(Do == 1) {
+               if(qu == 1 && it == 0) {
                   qu = 0;
                   it++;
                }
-               if(qu == 0 && it == 0)
-               {
+               if(qu == 0 && it == 0) {
                   qu = 1;
                   it++;
                }
@@ -147,19 +120,14 @@ function OnMotion(data)
             done = 1;
          }
       }
-      if(qu == 1)
-      {
-         if(b > 4 && b < 11 || bb > 4 && bb < 11)
-         {
-            if(Do2 == 1)
-            {
-               if(qu == 1 && it == 0)
-               {
+      if(qu == 1) {
+         if(b > 4 && b < 11 || bb > 4 && bb < 11) {
+            if(Do2 == 1) {
+               if(qu == 1 && it == 0) {
                   qu = 0;
                   it++;
                }
-               if(qu == 0 && it == 0)
-               {
+               if(qu == 0 && it == 0) {
                   qu = 1;
                   Do2 = 0;
                   it++;
@@ -169,20 +137,16 @@ function OnMotion(data)
             }
          }
       }
-      if(b > 4 && b < 11 && bb > 4 && bb < 11)
-      {
+      if(b > 4 && b < 11 && bb > 4 && bb < 11) {
          or++;
          done = 1;
       }
    }
-   if(and > corr)
-   {
+   if(and > corr) {
       var check = numa.split(",");
       check = numa.split(",");
-      if(check[cyc] == qu)
-      {
-         if(swi == longcyc)
-         {
+      if(check[cyc] == qu) {
+         if(swi == longcyc) {
             qu = Math.floor(Math.random() * (2)) + 0;
          }
          swi++;
@@ -191,43 +155,31 @@ function OnMotion(data)
          and = 0;
          cyc++;
          //app.ShowPopup("Nominal");
-
-
-         if(sta == 0)
-         {
-            if(ite != 8)
-            {
+         if(sta == 0) {
+            if(ite != 8) {
                binary += "0";
                ite++;
             }
-            if(ite == 8)
-            {
+            if(ite == 8) {
                binary += ",";
                ite = 0;
             }
-       
             sta = 1;
          }
-     
-
       }
       //most of the time it knows the number before it matches...
-      if(check[cyc] == qu)
-      {
+      if(check[cyc] == qu) {
          ack++;
-         if(qu == 1 && it == 0)
-         {
+         if(qu == 1 && it == 0) {
             qu = 0;
             it++;
          }
-         if(qu == 0 && it == 0)
-         {
+         if(qu == 0 && it == 0) {
             qu = 1;
             it++;
          }
          it = 0;
-         if(swi2 == longcyc2)
-         {
+         if(swi2 == longcyc2) {
             qu = Math.floor(Math.random() * (2)) + 0;
             swi2 = 0;
          }
@@ -235,55 +187,35 @@ function OnMotion(data)
          and = 0;
          or = 0;
          cyc++;
-
-         if(sta == 0)
-         {
+         if(sta == 0) {
             //app.ShowPopup("Nominal" );
-            if(ite != 8)
-            {
+            if(ite != 8) {
                //binary += "0";
                //ite++;
             }
-            if(ite == 8)
-            {
+            if(ite == 8) {
                binary += ",";
                ite = 0;
             }
-            low += 170000;
-            high += 170000;
-
-
-            if(high > 999999)
-            {
-               low = 0;
-               high = 170000;
-            }
             sta = 1;
          }
-
-
       }
    }
-   if(or > corr)
-   {
+   if(or > corr) {
       var check = numa.split(",");
       //most of the time it knows the number before it matches...
-      if(check[cyc] == qu)
-      {
+      if(check[cyc] == qu) {
          ack++;
-         if(qu == 1 && it == 0)
-         {
+         if(qu == 1 && it == 0) {
             qu = 0;
             it++;
          }
-         if(qu == 0 && it == 0)
-         {
+         if(qu == 0 && it == 0) {
             qu = 1;
             it++;
          }
          it = 0;
-         if(swi2 == longcyc2)
-         {
+         if(swi2 == longcyc2) {
             qu = Math.floor(Math.random() * (2)) + 0;
             it = 0;
             swi2 = 0;
@@ -293,27 +225,21 @@ function OnMotion(data)
          or = 0;
          cyc++;
          //app.ShowPopup("Nominal" );
-         if(ite != 8)
-         {
+         if(ite != 8) {
             //binary += "0";
 
             //ite++;
          }
-         if(ite == 8)
-         {
+         if(ite == 8) {
             binary += ",";
             ite = 0;
          }
-         if(sta == 0)
-         {
-
+         if(sta == 0) {
             sta = 1;
          }
       }
-      if(check[cyc] != qu)
-      {
-         if(swi == longcyc)
-         {
+      if(check[cyc] != qu) {
+         if(swi == longcyc) {
             qu = Math.floor(Math.random() * (2)) + 0;
             swi = 0;
          }
@@ -324,15 +250,13 @@ function OnMotion(data)
          and = 0;
          cyc++;
          app.ShowPopup("Response detected");
-         if(ite != 8)
-         {
+         if(ite != 8) {
             binary += "1";
             app.SetClipboardText(binary);
 
             ite++;
          }
-         if(ite == 8)
-         {
+         if(ite == 8) {
             binary += ",";
             ite = 0;
          }
@@ -341,11 +265,7 @@ function OnMotion(data)
       }
    }
 }
-
-
-function send()
-{
-
+function send() {
    binary += "@" + ite + " 1";
    ite++;
    //paradox computation
@@ -359,7 +279,7 @@ function send()
    		if (aa*aaa*aaaa*aaaaa == Math.floor(Math.random() * (1024)) + 0){
    */
    //integer = aa*aaa*aaaa*aaaaa;
-   integer = 580067987;//message
+   integer = 580067987; //message
    /*
    	}
    }
@@ -371,118 +291,78 @@ function send()
    var resultint = integer.toString(2);
    app.ShowPopup(resultint);
    //paradox computation
-
-   msg ="@" + ite + " " + resultint[ite]; //represents 1 bit.
+   msg = "@" + ite + " " + resultint[ite]; //represents 1 bit.
    ite++;
-if(msg.index_Of("@0") > -1)
-   {
-      if(msg.index_Of(" 1") > -1)
-      {
-         for(var a = 0; a < 500; a++)
-         {
+   if(msg.index_Of("@0") > -1) {
+      if(msg.index_Of(" 1") > -1) {
+         for(var a = 0; a < 500; a++) {
             var b = 1;
             numa += b + ",";
          }
          recieve += msg + ",";
       }
    }
-
-   if(msg.index_Of("@1") > -1)
-   {
-      if(msg.index_Of(" 1") > -1)
-      {
-         for(var a = 0; a < 500; a++)
-         {
+   if(msg.index_Of("@1") > -1) {
+      if(msg.index_Of(" 1") > -1) {
+         for(var a = 0; a < 500; a++) {
             var b = 1;
             numa += b + ",";
          }
          recieve += msg + ",";
       }
    }
-
-
-   if(msg.index_Of("@2") > -1)
-   {
-      if(msg.index_Of(" 1") > -1)
-      {
-         for(var a = 0; a < 500; a++)
-         {
+   if(msg.index_Of("@2") > -1) {
+      if(msg.index_Of(" 1") > -1) {
+         for(var a = 0; a < 500; a++) {
             var b = 1;
             numa += b + ",";
          }
          recieve += msg + ",";
       }
    }
-
-
-
-   if(msg.index_Of("@3") > -1)
-   {
-      if(msg.index_Of(" 1") > -1)
-      {
-         for(var a = 0; a < 500; a++)
-         {
+   if(msg.index_Of("@3") > -1) {
+      if(msg.index_Of(" 1") > -1) {
+         for(var a = 0; a < 500; a++) {
             var b = 1;
             numa += b + ",";
          }
          recieve += msg + ",";
       }
    }
-
-
-   if(msg.index_Of("@4") > -1)
-   {
-      if(msg.index_Of(" 1") > -1)
-      {
-         for(var a = 0; a < 500; a++)
-         {
+   if(msg.index_Of("@4") > -1) {
+      if(msg.index_Of(" 1") > -1) {
+         for(var a = 0; a < 500; a++) {
             var b = 1;
             numa += b + ",";
          }
          recieve += msg + ",";
       }
    }
-
-
-   if(msg.index_Of("@5") > -1)
-   {
-      if(msg.index_Of(" 1") > -1)
-      {
-         for(var a = 0; a < 500; a++)
-         {
+   if(msg.index_Of("@5") > -1) {
+      if(msg.index_Of(" 1") > -1) {
+         for(var a = 0; a < 500; a++) {
             var b = 1;
             numa += b + ",";
          }
          recieve += msg + ",";
       }
    }
-
-
-   if(msg.index_Of("@6") > -1)
-   {
-      if(msg.index_Of(" 1") > -1)
-      {
-         for(var a = 0; a < 500; a++)
-         {
+   if(msg.index_Of("@6") > -1) {
+      if(msg.index_Of(" 1") > -1) {
+         for(var a = 0; a < 500; a++) {
             var b = 1;
             numa += b + ",";
          }
          recieve += msg + ",";
       }
    }
-
-
-   if(msg.index_Of("@7") > -1)
-   {
-      if(msg.index_Of(" 1") > -1)
-      {
-         for(var a = 0; a < 500; a++)
-         {
+   if(msg.index_Of("@7") > -1) {
+      if(msg.index_Of(" 1") > -1) {
+         for(var a = 0; a < 500; a++) {
             var b = 1;
             numa += b + ",";
          }
          recieve += msg + ",";
       }
    }
-
 }
