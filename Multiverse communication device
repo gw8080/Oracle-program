@@ -307,7 +307,6 @@ function OnMotion(data)
          if(sta == 0)
          {
 
-
             sta = 1;
          }
       }
